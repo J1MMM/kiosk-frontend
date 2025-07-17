@@ -1,10 +1,9 @@
-import { useState } from "react";
-import Display from "./pages/Display";
 import "./styles/global.scss";
+import QueueDisplay from "./pages/QueueDisplay";
 function App() {
   return (
     <>
-      <Display />
+      <QueueDisplay />
     </>
   );
 }

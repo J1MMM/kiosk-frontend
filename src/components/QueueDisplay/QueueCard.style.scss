@@ -1,0 +1,48 @@
+.queue-card {
+  width: 150px;
+  height: 150px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition-duration: 1s;
+  // claymorphic edsign
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 26px;
+  box-shadow: 35px 35px 68px 0px rgba(145, 192, 255, 0.5),
+    inset -8px -8px 16px 0px rgba(145, 192, 255, 0.6),
+    inset 0px 11px 28px 0px rgb(255, 255, 255);
+
+  h1.text {
+    font-size: 2em;
+  }
+
+  &.active {
+    width: 300px;
+    height: 300px;
+    grid-row: span 2;
+    h1.text {
+      font-size: 3em;
+    }
+  }
+
+  &.remove {
+    position: absolute; // remove from grid flow
+    width: 100%; // preserve layout size
+    animation: removeCard 0.5s ease-in-out forwards;
+    z-index: 10; // ensure it's on top during fade
+  }
+}
+
+@keyframes removeCard {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(0);
+  }
+}
