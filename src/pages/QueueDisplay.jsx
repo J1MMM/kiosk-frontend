@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import { Box, Grid, Stack } from "@mui/material";
 import QueueCard from "../components/QueueDisplay/QueueCard";
 import QueueCardGrid from "../components/QueueDisplay/QueueCardGrid";
-
+import { AnimatePresence } from "framer-motion";
+import { Flipper, Flipped } from "react-flip-toolkit";
+function chunkArray(array, chunkSize) {
+  const result = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    result.push(array.slice(i, i + chunkSize));
+  }
+  return result;
+}
 function QueueDisplay() {
   const [queue, setQueue] = useState([
     { id: "M-001", status: "active" },
@@ -15,26 +23,20 @@ function QueueDisplay() {
   ]);
 
   const handleNext = () => {
-    const activeItem = queue.find((item) => item.status === "active");
-    if (!activeItem) return;
+    setQueue((prev) => {
+      const activeIndex = prev.findIndex((item) => item.status === "active");
+      if (activeIndex === -1) return prev;
 
-    // Mark as removing (triggers animation)
-    setQueue((prev) =>
-      prev.map((item) =>
-        item.id === activeItem.id ? { ...item, removing: true } : item
-      )
-    );
-
-    // After animation, remove from queue
-    setTimeout(() => {
-      setQueue((prev) => {
-        const updated = prev.filter((item) => item.id !== activeItem.id);
-        // Set next item as active
-        if (updated.length > 0) updated[0].status = "active";
-        return updated;
-      });
-    }, 500);
+      const updated = [...prev];
+      updated.splice(activeIndex, 1); // Remove current
+      if (updated[0]) updated[0].status = "active";
+      return updated;
+    });
   };
+  const rowSize = 4;
+  const rows = chunkArray(queue, rowSize);
+
+  console.log(rows);
 
   return (
     <Stack
@@ -46,16 +48,26 @@ function QueueDisplay() {
     >
       <button onClick={handleNext}>Next</button>
 
-      <QueueCardGrid>
-        {queue.map((item) => (
-          <QueueCard
-            key={item.id}
-            label={item.id}
-            status={item.status}
-            removing={item.removing}
-          />
-        ))}
-      </QueueCardGrid>
+      <Flipper flipKey={queue.map((item) => item.id).join(",")}>
+        <Stack spacing={2}>
+          {rows.map((row, rowIndex) => (
+            <Box
+              key={rowIndex}
+              display="flex"
+              flexDirection={rowIndex % 2 === 1 ? "row-reverse" : "row"}
+              gap={2}
+            >
+              {row.map((item) => (
+                <Flipped key={item.id} flipId={item.id}>
+                  <div>
+                    <QueueCard label={item.id} status={item.status} />
+                  </div>
+                </Flipped>
+              ))}
+            </Box>
+          ))}
+        </Stack>
+      </Flipper>
     </Stack>
   );
 }

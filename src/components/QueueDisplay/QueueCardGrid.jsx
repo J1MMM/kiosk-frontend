@@ -1,22 +1,24 @@
 import { Box } from "@mui/material";
+import { motion } from "framer-motion";
 
 function QueueCardGrid({ children }) {
   return (
-    <Box
-      display="grid"
-      gridTemplateColumns="auto auto auto auto "
-      alignItems={"center"}
-      sx={{
+    <motion.div
+      layout
+      style={{
+        display: "grid",
+        gridTemplate: "repeat(2, auto) / repeat(4, auto)", // 2 rows, 4 cols
+        alignItems: "center",
         width: "fit-content",
         height: "fit-content",
         border: "1px solid",
-        p: 2,
+        padding: 16,
         borderRadius: "26px",
-        gap: 2,
+        gap: 16,
       }}
     >
       {children}
-    </Box>
+    </motion.div>
   );
 }
 
