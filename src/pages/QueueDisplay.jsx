@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Stack } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 import QueueCard from "../components/QueueDisplay/QueueCard";
 import { AnimatePresence } from "framer-motion";
 import { Flipper, Flipped } from "react-flip-toolkit";
@@ -15,13 +15,6 @@ function QueueDisplay() {
     { id: "M-006", status: "waiting" },
     { id: "M-007", status: "waiting" },
     { id: "M-008", status: "waiting" },
-    { id: "M-009", status: "waiting" },
-    { id: "M-010", status: "waiting" },
-    { id: "M-011", status: "waiting" },
-    { id: "M-012", status: "waiting" },
-    { id: "M-013", status: "waiting" },
-    { id: "M-014", status: "waiting" },
-    { id: "M-015", status: "waiting" },
   ]);
 
   const [cioQueue, setCioQueue] = useState([
@@ -33,13 +26,6 @@ function QueueDisplay() {
     { id: "C-006", status: "waiting" },
     { id: "C-007", status: "waiting" },
     { id: "C-008", status: "waiting" },
-    { id: "C-009", status: "waiting" },
-    { id: "C-010", status: "waiting" },
-    { id: "C-011", status: "waiting" },
-    { id: "C-012", status: "waiting" },
-    { id: "C-013", status: "waiting" },
-    { id: "C-014", status: "waiting" },
-    { id: "C-015", status: "waiting" },
   ]);
 
   const [cityAdminQueue, setCityAdminQueue] = useState([
@@ -51,13 +37,6 @@ function QueueDisplay() {
     { id: "A-006", status: "waiting" },
     { id: "A-007", status: "waiting" },
     { id: "A-008", status: "waiting" },
-    { id: "A-009", status: "waiting" },
-    { id: "A-010", status: "waiting" },
-    { id: "A-011", status: "waiting" },
-    { id: "A-012", status: "waiting" },
-    { id: "A-013", status: "waiting" },
-    { id: "A-014", status: "waiting" },
-    { id: "A-015", status: "waiting" },
   ]);
 
   const handleNext = (queue, setQueue) => {
@@ -90,21 +69,31 @@ function QueueDisplay() {
   // }, [mayorsOfficeQueue, cioQueue, cityAdminQueue]);
   return (
     <Stack
-      // bgcolor="#95C3FF"
-      bgcolor="#ddd"
+      className="gradient"
+      // bgcolor="#ddd"
       height="100vh"
       width="100%"
-      justifyContent="center"
-      padding={3}
+      padding={5}
       boxSizing={"border-box"}
       spacing={3}
+      justifyContent={"center"}
     >
-      <AnimatedCardContainer
-        queue={mayorsOfficeQueue}
-        office="Mayor's office"
-      />
-      <AnimatedCardContainer queue={cioQueue} office="CIO" />
-      <AnimatedCardContainer queue={cityAdminQueue} office="City Admin" />
+      {/* <Typography
+        variant="h2"
+        fontFamily={"Euclid Circular A, sans-serif"}
+        fontWeight="bold"
+        textAlign={"center"}
+      >
+        QUEUING SYSTEM DISPLAY
+      </Typography> */}
+      <Stack direction={"row"} spacing={3} width="100%">
+        <AnimatedCardContainer
+          queue={mayorsOfficeQueue}
+          office="Mayor's office"
+        />
+        <AnimatedCardContainer queue={cioQueue} office="CIO" />
+        <AnimatedCardContainer queue={cityAdminQueue} office="City Admin" />
+      </Stack>
     </Stack>
   );
 }

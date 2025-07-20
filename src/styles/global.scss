@@ -1,8 +1,3 @@
-:root {
-  --queue-card-width: 125px;
-  --active-card-width: 250px;
-}
-
 @font-face {
   font-family: "Euclid Circular A";
   src: url("../assets/fonts/Euclid-Circular-A-Regular.ttf");
@@ -12,4 +7,13 @@
 body {
   padding: 0;
   margin: 0;
+}
+
+.gradient {
+  background: linear-gradient(
+    180deg,
+    rgba(162, 202, 254, 1) 0%,
+    rgba(236, 244, 255, 1) 80%,
+    rgba(255, 255, 255, 1) 100%
+  );
 }
